@@ -1,22 +1,32 @@
 package com.ssafy.ssafit.model.dto;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class Routine {
+	int id;
     List<Fitness> routine;
+    String fitnessList;
+    
 
     // init 이후 다루어질 변수들
     ArrayList<Fitness>[] graph;
     int[] inDegree;
-
+    
+    // 생성자
     public Routine() {
         this.routine = new ArrayList<>();
     }
 
     public Routine(List<Fitness> routine) {
+    	System.out.println("리스트 생성자");
         this.routine = routine;
     }
-
+    
+    
     // 루틴을 넣기
     public void putRoutine(Fitness fitness){
         this.routine.add(fitness);
@@ -63,7 +73,8 @@ public class Routine {
             }
         }
     }
-
+    
+    @JsonIgnore
     // 선택지를 반환하기
     public List<Fitness> getSelection(){
         List<Fitness> selection = new ArrayList<>();
@@ -95,12 +106,42 @@ public class Routine {
         return remain;
     }
 
-    @Override
-    public String toString() {
-        return "Routine{" +
-                "routine=" + routine +
-                ", graph=" + Arrays.toString(graph) +
-                ", inDegree=" + Arrays.toString(inDegree) +
-                '}';
-    }
+    public List<Fitness> getRoutine() {
+		return routine;
+	}
+
+	public void setRoutine(List<Fitness> routine) {
+		this.routine = routine;
+	}
+		
+	@JsonIgnore
+	public String getFitnessList() {
+		return fitnessList;
+	}
+
+	public void setFitnessList(String fitnessList) {
+		this.fitnessList = fitnessList;
+		
+		List<Fitness> list = new ArrayList<>();
+		
+		String[] temps = fitnessList.split("%");
+		
+		for(String temp : temps) {
+			list.add(Fitness.valueOf(temp));
+		}
+	    this.routine = list;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	@Override
+	public String toString() {
+		return "Routine [id=" + id + ", routine=" + routine + "]";
+	}
 }
