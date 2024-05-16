@@ -1,6 +1,7 @@
 package com.ssafy.ssafit.model.dto;
 
 public class Review {
+	private int reviewId;
 	private String title;
 	private String userId;
 	private String userName;
@@ -9,17 +10,34 @@ public class Review {
 	private String content;
 	private int viewCnt;
 	
-	// 기본 생성자
-	Review () {}
+	//기본 생성자
+	Review() {}
 	
-	// 운동 완료 후 후기 작성시(본인이 루틴 생성)
 	
+	// 리뷰 생성을 위한 생성자
+	public Review(String title, String userId, String userName, String content) {
+		super();
+		this.title = title;
+		this.userId = userId;
+		this.userName = userName;
+		this.content = content;
+	}
 	
 
-	// 모든 파라미터 받는 생성자
-	public Review(String title, String userId, String userName, String createTime, String routine, String content,
-			int viewCnt) {
+	// 리뷰 수정을 위한 생성자
+	public Review(int reviewId, String title, String content) {
 		super();
+		this.reviewId = reviewId;
+		this.title = title;
+		this.content = content;
+	}
+	
+	
+	// 모든 파라미터를 받는 생성자
+	public Review(int reviewId, String title, String userId, String userName, String createTime, String routine,
+			String content, int viewCnt) {
+		super();
+		this.reviewId = reviewId;
 		this.title = title;
 		this.userId = userId;
 		this.userName = userName;
@@ -27,6 +45,21 @@ public class Review {
 		this.routine = routine;
 		this.content = content;
 		this.viewCnt = viewCnt;
+	}
+
+
+
+
+	public int getReviewId() {
+		return reviewId;
+	}
+
+
+	
+
+
+	public void setReviewId(int reviewId) {
+		this.reviewId = reviewId;
 	}
 
 
@@ -98,6 +131,6 @@ public class Review {
 	public void setViewCnt(int viewCnt) {
 		this.viewCnt = viewCnt;
 	}
-	
+
 	
 }
