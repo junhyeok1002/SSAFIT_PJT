@@ -4,14 +4,15 @@ USE ssafit;
 
 CREATE TABLE Routine (
 	id INT AUTO_INCREMENT,
-    fitnessList TEXT,
+    fitnessList VARCHAR(307) UNIQUE,
     PRIMARY KEY(id)
 );
 
-INSERT INTO Routine(fitnessList) 
-VALUES ("Dumbbell_Curl%Dumbbell_Seated_Curl"),
-		("Dumbbell_Curl%Dumbbell_Seated_Curl%Cable_Biceps_Curl"),
-	   ("Dumbbell_Curl%Dumbbell_Seated_Curl%Cable_Biceps_Curl%Barbell_Lying_Triceps_Extension");
+INSERT IGNORE INTO Routine(fitnessList) 
+VALUES ("[1, 2]"),
+		("[1, 2]"),
+        ("[1, 3, 4]"),
+        ("[1, 2, 3, 4]");
 
 CREATE TABLE User (
 	id VARCHAR(20) NOT NULL,
@@ -49,4 +50,4 @@ INSERT INTO review (userId, userName, title, content, routineList) VALUES
 
 select * from review;        
 SELECT * FROM User;
-SELECT * FROM Routine;
+SELECT * FROM Routine ORDER BY id ASC;
