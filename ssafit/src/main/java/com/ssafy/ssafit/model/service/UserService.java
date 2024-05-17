@@ -12,4 +12,7 @@ public interface UserService {
 	// 로그인
 	User login(User user);
 	
+	// 유저 정보 갱신
+	int update(User user);
+	
 }

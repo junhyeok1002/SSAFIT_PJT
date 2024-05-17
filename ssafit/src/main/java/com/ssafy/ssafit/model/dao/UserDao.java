@@ -14,5 +14,8 @@ public interface UserDao {
 	// 로그인
 	User userLogin(User user);
 	
+	//유저 정보 갱신
+	int userUpdate(User user);
+	
 
 }

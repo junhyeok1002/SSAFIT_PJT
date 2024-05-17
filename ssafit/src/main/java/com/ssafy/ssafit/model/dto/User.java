@@ -1,5 +1,6 @@
 package com.ssafy.ssafit.model.dto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class User {
@@ -16,16 +17,43 @@ public class User {
 	public User() {
 	}
 	
+	// 로그인 시 필요한 생성자
 	public User(String id, String password) {
 		this.id = id;
 		this.password = password;
 	}
 
-	public User(String id, String password, String name, String address, String favorite, String done) {
+	// 회원가입시 필요한 생성자
+	public User(String id, String password, String name, String address) {
 		this.id = id;
 		this.password = password;
 		this.name = name;
 		this.address = address;
+	}
+	
+	//유저 정보 갱신 생성자
+	public User(String id, String password, String name, String address, String favorite, String done) {
+		super();
+		this.id = id;
+		this.password = password;
+		this.name = name;
+		this.address = address;
+		this.favorite = favorite;
+		this.done = done;
+	}
+	
+	// 모든 파라미터를 받는 생성자
+	public User(String id, String password, String name, String address, List<Integer> favoriteRoutine,
+			List<Integer> doneRoutine, String favorite, String done) {
+		super();
+		this.id = id;
+		this.password = password;
+		this.name = name;
+		this.address = address;
+		this.favoriteRoutine = favoriteRoutine;
+		this.doneRoutine = doneRoutine;
+		this.favorite = favorite;
+		this.done = done;
 	}
 
 	public String getId() {
@@ -98,6 +126,8 @@ public class User {
 				+ ", favoriteRoutine=" + favoriteRoutine + ", doneRoutine=" + doneRoutine + ", favorite=" + favorite
 				+ ", done=" + done + "]";
 	}
+	
+
 	
 }
 

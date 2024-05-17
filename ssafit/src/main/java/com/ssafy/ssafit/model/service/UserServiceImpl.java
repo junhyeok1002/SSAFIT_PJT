@@ -39,6 +39,12 @@ public class UserServiceImpl implements UserService {
 		return userDao.userExist(user);
 	}
 
+	@Override
+	public int update(User user) {
+		// 유저 정보 갱신
+		return userDao.userUpdate(user);
+	}
+
 	
 	
 }
