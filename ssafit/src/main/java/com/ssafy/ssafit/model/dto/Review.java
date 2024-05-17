@@ -23,6 +23,14 @@ public class Review {
 		this.content = content;
 	}
 	
+	//로그인시 리뷰 생성자를 위한 생성자
+	public Review(String title, String content) {
+		super();
+		this.title = title;
+		this.content = content;
+	}
+	
+	
 
 	// 리뷰 수정을 위한 생성자
 	public Review(int reviewId, String title, String content) {
@@ -33,6 +41,8 @@ public class Review {
 	}
 	
 	
+
+
 	// 모든 파라미터를 받는 생성자
 	public Review(int reviewId, String title, String userId, String userName, String createTime, String routine,
 			String content, int viewCnt) {

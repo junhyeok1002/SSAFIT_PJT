@@ -16,7 +16,7 @@
     </select>
 
 	<!-- 리뷰 작성 -->
-    <insert id="reviewInsert" parameterType="Review" useGeneratedKeys="true" keyProperty="reviewId">
+    <insert id="reviewInsert" parameterType="Review" keyProperty="reviewId" useGeneratedKeys="true" >
         INSERT INTO review (userId, userName, title, content)
         VALUES (#{userId}, #{userName}, #{title}, #{content})
     </insert>
@@ -31,7 +31,7 @@
     <!-- 리뷰 삭제, 해당 작성자만 수정할 수 있도록 함!  -->
     <!--  작성자 검증은 컨트롤러에서 먼저 선행된 상태임! -->
     <delete id="reviewDelete" parameterType="int">
-        DELETE FROM employee 
+        DELETE FROM review 
         WHERE reivewId = #{reivewId}
     </delete>
     

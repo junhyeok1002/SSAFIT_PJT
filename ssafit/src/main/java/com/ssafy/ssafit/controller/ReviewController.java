@@ -22,6 +22,7 @@ import com.ssafy.ssafit.model.dto.ReviewCondition;
 import com.ssafy.ssafit.model.dto.User;
 import com.ssafy.ssafit.model.service.ReviewService;
 
+
 @RestController
 @CrossOrigin("*") // 우선 작동하는지 보기위해...
 @RequestMapping("/review")
@@ -29,6 +30,7 @@ public class ReviewController {
 	
 
 	private ReviewService reviewService;
+	
 	
 	//의존성 주입
 	@Autowired
@@ -40,6 +42,8 @@ public class ReviewController {
     @GetMapping("")
     public ResponseEntity<?> reviewList() {
     	System.out.println("전부가져와!!!");
+    	//진입과 동시에 바로 로그인을 했다고 가정함
+    	
         List<Review> reviews = reviewService.getReviewList();
     	return new ResponseEntity<List<Review>>(reviews, HttpStatus.OK);
     }
@@ -58,7 +62,11 @@ public class ReviewController {
 	// 리뷰 생성
     @PostMapping("")
     public ResponseEntity<?> reviewCreate(@RequestBody Review review) {
+    	//user의 id와 name은 temp객체에서 가져옴
     	System.out.println("만들어줘잉 "+review.getTitle());
+    	review.setUserId("ssafy");
+    	review.setUserName("아무개");
+    	System.out.println("만들 수 있니?");
 		int result = reviewService.writeReview(review);
 		return new ResponseEntity<>(result, result == 1 ? HttpStatus.OK : HttpStatus.BAD_REQUEST);
     }
