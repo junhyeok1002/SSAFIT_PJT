@@ -21,11 +21,23 @@ public class RoutineServiceImpl implements RoutineService{
 	public List<Routine> getRoutineList() {
 		return routineDao.selectAll();
 	}
+	
+	@Override
+	public Routine selectOneByRoutine(Routine routine) {
+		return routineDao.selectOneByRoutine(routine);
+	}
+
+	@Override
+	public Routine selectOneById(int id) {
+		return routineDao.selectOneById(id);
+	}
 
 	@Override
 	public void createOne(Routine routine) {
 		routineDao.createOne(routine);
 	}
+
+
 	
 	
 }

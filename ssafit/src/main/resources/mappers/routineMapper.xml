@@ -7,8 +7,24 @@
 
 	<!-- 전체 루틴 조회 -->
 	<select id="selectAll" resultType="routine">
-		SELECT id, fitnessList FROM Routine ORDER BY id ASC;
+		SELECT * FROM Routine 
+		ORDER BY id ASC;
 	</select>
+	
+	<!-- 루틴 -> id 조회 -->
+	<select id="selectOneByRoutine" resultType="routine" parameterType="Routine">
+		SELECT * FROM Routine
+		WHERE fitnessList = #{fitnessList}
+		ORDER BY id ASC;
+	</select>
+	
+	<!-- id -> 루틴 조회 -->
+	<select id="selectOneById" resultType="routine" parameterType="int">
+		SELECT * FROM Routine
+		WHERE id = #{id}
+		ORDER BY id ASC;
+	</select>
+	
 	
 	<!-- 루틴 등록 -->
 	<insert id="createOne" parameterType="Routine" keyProperty="id" useGeneratedKeys="true">

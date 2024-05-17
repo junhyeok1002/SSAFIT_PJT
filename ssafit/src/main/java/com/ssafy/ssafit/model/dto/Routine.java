@@ -1,12 +1,14 @@
 package com.ssafy.ssafit.model.dto;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.mysql.cj.x.protobuf.MysqlxCrud.Collection;
 
 public class Routine {
 	int id;
@@ -153,7 +155,62 @@ public class Routine {
 	public void setId(int id) {
 		this.id = id;
 	}
+	
+	// 근활성도를 나타내는 코드
+	public Map<String, Double> activate(){
+		Map<String, Double> map = new HashMap<>();
+		
+		int total_volume = 0;
+		
+		for(Fitness fitness : routine) {
+			// 주동근 계산
+			// 없으면 만들고
+			String agonist = fitness.getAgonist().name();
+			if(!map.containsKey(agonist)) {
+				map.put(agonist, (double)0);
+			}
+			map.put(agonist, map.get(agonist)+fitness.getAgonist().getVolume());
+			total_volume += fitness.getAgonist().getVolume();
+			
+			// 1차 협응근
+			for(Muscle muscle : fitness.getSynergists_first()) {
+				if(!map.containsKey(muscle.name())) {
+					map.put(muscle.name(), (double)0);
+				}
+				map.put(muscle.name(), map.get(muscle.name())+(muscle.getVolume()/(double)2));
+				total_volume += (muscle.getVolume()/(double)2);
+			}
+			
+			// 2차 협응근
+			for(Muscle muscle : fitness.getSynergists_second()) {
+				if(!map.containsKey(muscle.name())) {
+					map.put(muscle.name(), (double)0);
+				}
+				map.put(muscle.name(), map.get(muscle.name())+(muscle.getVolume()/(double)4));
+				total_volume += (muscle.getVolume()/(double)4);
+			}
+		}
+		
+		for(String key : map.keySet()) {
+			double percent = map.get(key) / (double)total_volume;
+			percent = Math.round((percent * 10000))/((double) 100);
+			map.put(key, percent);
+		}
+		
+		map.put("TOTAL", (double)total_volume);
+		return map;
+	}
+	
+	 public Map<String, ?> makeMap(){
+	 	Map outer = new HashMap<>();
 
+	 	outer.put("id", this.id);
+	 	outer.put("routine", this.routine);
+	 	outer.put("activation", this.activate());
+	 	
+	 	return outer;
+	 }
+	
 	@Override
 	public String toString() {
 		return "Routine [id=" + id + ", routine=" + routine + "]";

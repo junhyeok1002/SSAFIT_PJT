@@ -1,5 +1,10 @@
 package com.ssafy.ssafit.model.dto;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public enum Muscle {
     // 운동 부위 enum ⇒ 근육부피, 한글이름
     // volume의 단위는 cm^3
@@ -32,5 +37,26 @@ public enum Muscle {
     }
     public String getName() {
         return name;
+    }
+    
+    public Map<String, Map<String, String>> getMap(){
+    	Map outer = new HashMap<>();
+    	Map inner = new HashMap<>();
+    	
+    	inner.put("name", this.name);
+    	inner.put("volume", this.volume);
+    	outer.put(this, inner);
+    	return outer;
+    }
+    
+    public static List<Map<String, Map<String, String>>> getMaps(){
+    	List<Map<String, Map<String, String>>> list = new ArrayList<>();
+    	
+    	Muscle[] muscles = Muscle.values();
+    	
+    	for(Muscle m : muscles) {
+    		list.add(m.getMap());
+    	}
+    	return list;
     }
 }

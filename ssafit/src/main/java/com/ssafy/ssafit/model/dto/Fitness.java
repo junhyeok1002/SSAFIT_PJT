@@ -244,4 +244,115 @@ public enum Fitness {
 
      return set;
  }
+ 
+ 
+
+ 
+ 
+ public Map<String, ?> getMap(){
+ 	Map outer = new HashMap<>();
+ 	Map inner = new HashMap<>();
+ 	Map muscles = new HashMap<>();
+ 	
+ 	muscles.put("agonist", Arrays.asList(this.agonist));
+ 	muscles.put("synergists_first", this.synergists_first);
+ 	muscles.put("synergists_second", this.synergists_second);
+ 	
+ 	inner.put("id", this.id);
+ 	inner.put("name", this.name);
+ 	inner.put("muscle", muscles);
+ 	
+ 	outer.put(this, inner);
+ 	
+ 	return outer;
+ }
+ 
+ 
+ public static List<Map<String, ?>> getMaps(){
+	List<Map<String, ?>> list = new ArrayList<>();
+ 	
+	Fitness[] fitness = Fitness.values();
+ 	
+ 	for(Fitness f : fitness) {
+ 		list.add(f.getMap());
+ 	}
+ 	return list;
+ }
+ 
+ // 해당 근육을 주동근으로 사용하는 것
+ public static List<Map<String, ?>> getMapsAgonist(String agonist){
+	List<Map<String, ?>> list = new ArrayList<>();
+ 	
+	Fitness[] fitness = Fitness.values();
+ 	
+ 	for(Fitness f : fitness) {
+ 		if(f.agonist.name().toLowerCase()
+ 		   .equals(agonist.toLowerCase()))
+ 			list.add(f.getMap());
+ 	}
+ 	return list;
+ }
+ 
+ // 해당 근육을 1차 협응근으로 사용하는 것
+ public static List<Map<String, ?>> getMapsSynergyFirst(String synergists_first){
+	List<Map<String, ?>> list = new ArrayList<>();
+ 	
+	Fitness[] fitness = Fitness.values();
+ 	
+ 	for(Fitness f : fitness) {
+ 		for(Muscle m : f.synergists_first) {
+ 			if(m.name().toLowerCase()
+ 		 		   .equals(synergists_first.toLowerCase())) {
+ 				list.add(f.getMap());
+ 				break;
+ 			}
+ 		}
+ 	}
+ 	return list;
+ }
+ 
+//해당 근육을 1차 협응근으로 사용하는 것
+ public static List<Map<String, ?>> getMapsSynergySecond(String synergists_second){
+	List<Map<String, ?>> list = new ArrayList<>();
+ 	
+	Fitness[] fitness = Fitness.values();
+ 	
+ 	for(Fitness f : fitness) {
+ 		for(Muscle m : f.synergists_second) {
+ 			if(m.name().toLowerCase()
+ 		 		   .equals(synergists_second.toLowerCase())) {
+ 				list.add(f.getMap());
+ 				break;
+ 			}
+ 		}
+ 	}
+ 	return list;
+ }
+ public static Fitness findFitness(String name) {
+	 Fitness fitness = Fitness.valueOf(convertToCamelCase(name));
+	 return fitness;
+ }
+ public static String convertToCamelCase(String snakeCase) {
+     StringBuilder camelCase = new StringBuilder();
+     boolean nextUpperCase = true;
+     
+     for (int i = 0; i < snakeCase.length(); i++) {
+         char currentChar = snakeCase.charAt(i);
+         
+         if (currentChar == '_') {
+             camelCase.append('_');
+             nextUpperCase = true;
+         } else {
+             if (nextUpperCase) {
+                 camelCase.append(Character.toUpperCase(currentChar));
+                 nextUpperCase = false;
+             } else {
+                 camelCase.append(Character.toLowerCase(currentChar));
+             }
+         }
+     }
+     
+     return camelCase.toString();
+ }
+ 
 }
