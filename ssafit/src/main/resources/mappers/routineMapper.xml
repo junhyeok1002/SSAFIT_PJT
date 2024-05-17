@@ -7,12 +7,12 @@
 
 	<!-- 전체 루틴 조회 -->
 	<select id="selectAll" resultType="routine">
-		SELECT id, fitnessList FROM Routine;
+		SELECT id, fitnessList FROM Routine ORDER BY id ASC;
 	</select>
 	
 	<!-- 루틴 등록 -->
 	<insert id="createOne" parameterType="Routine" keyProperty="id" useGeneratedKeys="true">
-		INSERT INTO Routine (fitnessList)
+		INSERT IGNORE INTO Routine (fitnessList)
 		VALUES (#{fitnessList});
 	</insert>
 	

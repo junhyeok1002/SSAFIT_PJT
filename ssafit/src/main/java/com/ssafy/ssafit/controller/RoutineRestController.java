@@ -57,7 +57,9 @@ public class RoutineRestController {
         }
         
         Routine routine = new Routine(fitnessList);
-    
+        routineService.createOne(routine);
+        
+ 
         
         return new ResponseEntity<Routine>(routine, HttpStatus.OK);
     }

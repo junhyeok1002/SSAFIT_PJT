@@ -1,10 +1,12 @@
 package com.ssafy.ssafit.model.dto;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.mysql.cj.x.protobuf.MysqlxCrud.Collection;
 
 public class Routine {
 	int id;
@@ -22,7 +24,6 @@ public class Routine {
     }
 
     public Routine(List<Fitness> routine) {
-    	System.out.println("리스트 생성자");
         this.routine = routine;
     }
     
@@ -116,6 +117,17 @@ public class Routine {
 		
 	@JsonIgnore
 	public String getFitnessList() {
+		// 피트니스 리스트를 부를때 다시 오름차순 정렬 후, db에 넣기
+		Collections.sort(routine);
+		
+		// id로 변환하여 숫자로 저장하기 => DB 길이를 줄이기 위함
+		List<Integer> routineIDs = new ArrayList<>();
+		for(Fitness fitness : routine) {
+			routineIDs.add(fitness.getId());
+		}
+		
+		
+		this.fitnessList = routineIDs.toString();
 		return fitnessList;
 	}
 
@@ -124,10 +136,12 @@ public class Routine {
 		
 		List<Fitness> list = new ArrayList<>();
 		
-		String[] temps = fitnessList.split("%");
+		String parseStr = fitnessList.substring(1, fitnessList.length() - 1);
+		String[] temps = parseStr.split(", ");
+		Fitness[] fitnesses = Fitness.values();
 		
 		for(String temp : temps) {
-			list.add(Fitness.valueOf(temp));
+			list.add(fitnesses[Integer.parseInt(temp)-1]);
 		}
 	    this.routine = list;
 	}

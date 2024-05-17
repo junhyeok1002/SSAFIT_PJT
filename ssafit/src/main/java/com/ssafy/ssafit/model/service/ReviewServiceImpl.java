@@ -25,6 +25,7 @@ public class ReviewServiceImpl implements ReviewService {
 	public List<Review> getReviewList() {
 		// 모든 리뷰 가져오기
 		return reviewDao.reviewSelectAll();
+		
 	}
 
 	@Override
