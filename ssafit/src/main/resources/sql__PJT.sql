@@ -24,6 +24,7 @@ CREATE TABLE User (
     PRIMARY KEY(id)
 );
 
+
 INSERT INTO User(id, password, name, address) 
 VALUES ("ssafy","1234","김싸피","대전광역시 둔산로 15"),
 		("ssafy1","1234","김싸피","대전광역시 둔산로 15");
