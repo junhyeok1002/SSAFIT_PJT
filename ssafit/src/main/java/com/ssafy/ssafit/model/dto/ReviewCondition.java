@@ -2,15 +2,15 @@ package com.ssafy.ssafit.model.dto;
 
 public class ReviewCondition {
 	private String reviewTitle; // 검색할 제목
-	private String reviewAuthorId; // 작성자ID (동명이인 피하기)
+	private String reviewAuthorName; // 작성자명
 	private String reivewDirection; // 정렬 방향, null -> 보통, asc 오름차순, desc 내림차순
 	
 	ReviewCondition() {}
 
-	public ReviewCondition(String reviewTitle, String reviewAuthorId, String reivewDirection) {
+	public ReviewCondition(String reviewTitle, String reviewAuthorName, String reivewDirection) {
 		super();
 		this.reviewTitle = reviewTitle;
-		this.reviewAuthorId = reviewAuthorId;
+		this.reviewAuthorName = reviewAuthorName;
 		this.reivewDirection = reivewDirection;
 	}
 
@@ -22,12 +22,12 @@ public class ReviewCondition {
 		this.reviewTitle = reviewTitle;
 	}
 
-	public String getReviewAuthorId() {
-		return reviewAuthorId;
+	public String getReviewAuthorName() {
+		return reviewAuthorName;
 	}
 
-	public void setReviewAuthorId(String reviewAuthorId) {
-		this.reviewAuthorId = reviewAuthorId;
+	public void setReviewAuthorName(String reviewAuthorName) {
+		this.reviewAuthorName = reviewAuthorName;
 	}
 
 	public String getReivewDirection() {
@@ -37,5 +37,13 @@ public class ReviewCondition {
 	public void setReivewDirection(String reivewDirection) {
 		this.reivewDirection = reivewDirection;
 	}
+
+	@Override
+	public String toString() {
+		return "ReviewCondition [reviewTitle=" + reviewTitle + ", reviewAuthorName=" + reviewAuthorName
+				+ ", reivewDirection=" + reivewDirection + "]";
+	}
+	
+	
 
 }

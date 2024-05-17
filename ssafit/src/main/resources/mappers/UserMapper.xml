@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace는 연결할 매퍼 인터페이스의 전체 식별자 이름(full identifier, 패키지+클래스명)으로 설정한다. -->
+<mapper namespace="com.ssafy.ssafit.model.dao.UserDao">
+
+	<!-- 로그인 하기 -->
+	<!-- 데이터가 존재하면 가져오고, 없으면 안가져올 것! -->
+    <select id="userLogin" resultType="User" parameterType="User">
+        SELECT * FROM user
+        where id = #{id} and password = #{password};
+    </select>
+    
+	<!-- 아이디 중복검사 -->
+    <select id="userExist" resultType="User" parameterType="User">
+        SELECT * FROM user 
+        WHERE id = #{id};
+    </select>
+
+	<!-- 회원가입 -->
+    <insert id="userSignup" parameterType="User">
+        INSERT INTO user (id, password, name, address) 
+        VALUES (#{id}, #{password}, #{name}, #{address})
+    </insert>
+
+	
+</mapper>

@@ -25,10 +25,11 @@ public class Review {
 	}
 	
 	//로그인시 리뷰 생성자를 위한 생성자
-	public Review(String title, String content) {
+	public Review(String title, String content, String routine) {
 		super();
 		this.title = title;
 		this.content = content;
+		this.routine = routine;
 	}
 	
 	

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ssafy.ssafit.model.dao.ReviewDao;
 import com.ssafy.ssafit.model.dto.Review;
@@ -37,18 +38,21 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 
 	@Override
+	@Transactional
 	public int writeReview(Review review) {
 		// 리뷰 작성
 		return reviewDao.reviewInsert(review);
 	}
 
 	@Override
+	@Transactional
 	public int removeReview(int reviewId) {
 		// 리뷰 삭제
 		return reviewDao.reviewDelete(reviewId);
 	}
 
 	@Override
+	@Transactional
 	public int modifyReview(Review review) {
 		// 리뷰 수정
 		return reviewDao.reviewUpdate(review);
