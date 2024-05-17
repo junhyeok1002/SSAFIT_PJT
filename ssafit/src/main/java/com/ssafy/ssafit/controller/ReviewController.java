@@ -51,8 +51,7 @@ public class ReviewController {
 
 	// 특정 리뷰 상세 조회
     @GetMapping("/{reviewId}")
-    public ResponseEntity<?> reviewDetail(@PathVariable int reviewId) {
-    	System.out.println("왜안되지?");
+    public ResponseEntity<?> reviewDetail(@PathVariable("reviewId") int reviewId) {
     	System.out.println("하나만 가져와!!!"+reviewId);
     	Review review = reviewService.readReview(reviewId);
     	return new ResponseEntity<Review>(review, HttpStatus.OK);
@@ -63,7 +62,7 @@ public class ReviewController {
     @PostMapping("")
     public ResponseEntity<?> reviewCreate(@RequestBody Review review) {
     	//user의 id와 name은 temp객체에서 가져옴
-    	System.out.println("만들어줘잉 "+review.getTitle());
+    	System.out.println("만들어줘잉 "+review.toString());
     	review.setUserId("ssafy");
     	review.setUserName("아무개");
     	System.out.println("만들 수 있니?");
@@ -83,6 +82,7 @@ public class ReviewController {
     	// RequestBody로 가져온, 내용을 갱신할 reivew와 비교
     	// userId를 비교해서 일치하면 수정할 수 있도록 한다!
     	Review temp = reviewService.readReview(reviewId); // 해당 reviewId를 가진, 아직 내용이 바뀌지 않은 리뷰
+    	System.out.println("수정하고싶어!");
     	if (temp.getUserId() == review.getUserId()) { // 일치하면 수정을 하고
     		review.setReviewId(reviewId);
     		int result = reviewService.modifyReview(review);

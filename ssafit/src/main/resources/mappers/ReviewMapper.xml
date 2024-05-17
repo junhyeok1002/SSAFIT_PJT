@@ -12,13 +12,13 @@
 	<!-- 특정 리뷰 가져오기 -->
     <select id="reviewSelectOne" resultType="Review" parameterType="int">
         SELECT * FROM review 
-        WHERE reviewId = #{reviewId}
+        WHERE reviewId = #{reivewId};
     </select>
 
 	<!-- 리뷰 작성 -->
     <insert id="reviewInsert" parameterType="Review" keyProperty="reviewId" useGeneratedKeys="true" >
-        INSERT INTO review (userId, userName, title, content)
-        VALUES (#{userId}, #{userName}, #{title}, #{content})
+        INSERT INTO review (userId, userName, title, content, routineList)
+        VALUES (#{userId}, #{userName}, #{title}, #{content}, #{routine})
     </insert>
 
     <!-- 리뷰 수정, 해당 작성자만 수정할 수 있도록 함! -->
@@ -39,7 +39,7 @@
 	<update id="reviewUpdateViewCnt" parameterType="int">
         UPDATE review
         SET viewCnt = viewCnt + 1
-        WHERE reivewId = #{reivewId}
+        WHERE reviewId = #{reviewId};
     </update>
     
     <!-- 리뷰 검색 -->

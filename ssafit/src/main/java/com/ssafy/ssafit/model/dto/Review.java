@@ -15,12 +15,13 @@ public class Review {
 	
 	
 	// 리뷰 생성을 위한 생성자
-	public Review(String title, String userId, String userName, String content) {
+	public Review(String title, String userId, String userName, String content, String routine) {
 		super();
 		this.title = title;
 		this.userId = userId;
 		this.userName = userName;
 		this.content = content;
+		this.routine = routine;
 	}
 	
 	//로그인시 리뷰 생성자를 위한 생성자
@@ -140,6 +141,14 @@ public class Review {
 
 	public void setViewCnt(int viewCnt) {
 		this.viewCnt = viewCnt;
+	}
+
+
+	@Override
+	public String toString() {
+		return "Review [reviewId=" + reviewId + ", title=" + title + ", userId=" + userId + ", userName=" + userName
+				+ ", createTime=" + createTime + ", routine=" + routine + ", content=" + content + ", viewCnt="
+				+ viewCnt + "]";
 	}
 
 	
