@@ -51,17 +51,17 @@ public class UserController {
     		
     		//일단 루틴을 문자열로 받자!
     		// 추후 프론트에서 데이터를 받아 삭제할 영역
-    		result.setFavorite("[1,2,3,4,5]");
-    		result.setDone("[1,2,3]");
+//    		result.setFavorite("[1,2,3,4,5]");
+//    		result.setDone("[1,2,3]");
     		session.setAttribute("login", result);
 
-    		getList(session);
+//    		getList(session);
     		
     		//리스트화 완료
-    		System.out.println("리스트화 했어!");
-    		User wind = (User) session.getAttribute("login");
-    		System.out.println(wind.getDoneRoutine());
-    		System.out.println(wind.getFavoriteRoutine());
+//    		System.out.println("리스트화 했어!");
+//    		User wind = (User) session.getAttribute("login");
+//    		System.out.println(wind.getDoneRoutine());
+//    		System.out.println(wind.getFavoriteRoutine());
     		
     		
     		return new ResponseEntity<User>(result,HttpStatus.OK);

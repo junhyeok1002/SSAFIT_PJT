@@ -36,18 +36,18 @@ CREATE TABLE review (
     userId VARCHAR(20) NOT NULL,
     userName VARCHAR(20) NOT NULL,
     createTime TIMESTAMP DEFAULT now(),
-    routineList text not null,
+    routineId int not null,
     content TEXT NOT NULL,
     viewCnt INT DEFAULT 0,
     PRIMARY KEY (reviewId)
 );
 
-INSERT INTO review (userId, userName, title, content, routineList) VALUES
-('ssafy', '홍길동', '좋은 운동', '이 루틴 정말 좋습니다!','asdf'),
-('ssafy', '김철수', '괜찮아요', '할만한 루틴입니다.','asdf'),
-('ssafy', '이영희', '추천합니다', '친구들에게 추천할 만한 루틴입니다.','asdf'),
-('ssafy1', '박민수', '별로입니다', '기대에 미치지 못했습니다.','asdf'),
-('ssafy1', '최지은', '훌륭해요', '정말 훌륭한 루틴입니다. 만족합니다.','asdf');
+INSERT INTO review (userId, userName, title, content, routineId) VALUES
+('ssafy', '홍길동', '좋은 운동', '이 루틴 정말 좋습니다!',1),
+('ssafy', '김철수', '괜찮아요', '할만한 루틴입니다.',2),
+('ssafy', '이영희', '추천합니다', '친구들에게 추천할 만한 루틴입니다.',1),
+('ssafy1', '박민수', '별로입니다', '기대에 미치지 못했습니다.',4),
+('ssafy1', '최지은', '훌륭해요', '정말 훌륭한 루틴입니다. 만족합니다.',1);
 
 select * from review;        
 SELECT * FROM User;

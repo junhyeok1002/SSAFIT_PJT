@@ -17,7 +17,7 @@
 
 	<!-- 리뷰 작성 -->
     <insert id="reviewInsert" parameterType="Review" keyProperty="reviewId" useGeneratedKeys="true" >
-        INSERT INTO review (userId, userName, title, content, routineList)
+        INSERT INTO review (userId, userName, title, content, routineId)
         VALUES (#{userId}, #{userName}, #{title}, #{content}, #{routine})
     </insert>
 
