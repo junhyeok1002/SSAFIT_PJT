@@ -1,15 +1,19 @@
 package com.ssafy.ssafit.model.dto;
 
+import java.util.List;
+
 public class User {
 	private String id;
 	private String password;
 	private String name;
 	private String address;
+	
+	List<Integer> favoriteRoutine;
+	List<Integer> doneRoutine;
 	private String favorite;
 	private String done;
 	
 	public User() {
-		
 	}
 	
 	public User(String id, String password) {
