@@ -1,7 +1,6 @@
 package com.ssafy.ssafit.controller;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -19,6 +18,8 @@ import com.ssafy.ssafit.model.dto.Fitness;
 import com.ssafy.ssafit.model.dto.Muscle;
 import com.ssafy.ssafit.model.dto.Routine;
 import com.ssafy.ssafit.model.service.RoutineService;
+
+import jakarta.servlet.http.HttpSession;
 
 @RestController
 @RequestMapping("/api-routine")
@@ -135,4 +136,34 @@ public class RoutineRestController {
         return new ResponseEntity<Map<String, ?>>(routineList, HttpStatus.OK);
 	}
 	
+	// 해당 id에 해당하는 루틴을 
+	@GetMapping("/fitness/workout/{routine_id}")
+	public ResponseEntity<?> readRoutine(@PathVariable("routine_id") int routine_id, HttpSession session){
+		Routine routine = routineService.selectOneById(routine_id);
+		routine.init();
+		
+		// 세션에 루틴 저장
+        session.setAttribute("routine", routine);
+		
+        Map map = routine.pageInfoBeforeSelect();
+        
+        System.out.println("여기서 운동하기 페이지로 이동");
+        return new ResponseEntity<Map<String, ?>>(map, HttpStatus.OK);
+	}
+	
+	@GetMapping("/fitness/workout/{routine_id}/{select_name}")
+	public ResponseEntity<?> readRoutine(@PathVariable("routine_id") int routine_id, @PathVariable("select_name") String select_name, HttpSession session){
+		Routine routine = (Routine) session.getAttribute("routine");
+
+		routine.selectFitness(select_name);
+        Map map = routine.pageInfoBeforeSelect();
+        
+        if(((List<Routine>) map.get("remain")).size() == 0) {
+        	System.out.println("이제 끝이야!!! 후기 페이지로 넘어가줘");
+        	List list = routine.getSorted();
+        	return new ResponseEntity<List<Fitness>>(list, HttpStatus.OK);
+        }
+
+        return new ResponseEntity<Map<String, ?>>(map, HttpStatus.OK);
+	}
 }

@@ -1,11 +1,12 @@
 package com.ssafy.ssafit.model.dto;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Queue;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -19,6 +20,7 @@ public class Routine {
     // init 이후 다루어질 변수들
     ArrayList<Fitness>[] graph;
     int[] inDegree;
+    ArrayList<Fitness> queue;
     
     // 생성자
     public Routine() {
@@ -42,6 +44,7 @@ public class Routine {
         // 루틴의 길이만큼 그래프를 만들기
         graph = new ArrayList[N];
         inDegree = new int[N];
+        queue = new ArrayList<>();
 
         for(Fitness standard_fit : routine){
             for(Fitness near_fit : routine){
@@ -90,13 +93,18 @@ public class Routine {
     }
 
     // 선탁하기
-    public void selectFitness(Fitness fitness){
+    public void selectFitness(String fitness_name){
+    	// 소문자 => 카멜케이스 변경 후, 처리
+    	fitness_name = Fitness.convertToCamelCase(fitness_name);
+    	Fitness fitness = Fitness.valueOf(fitness_name);
         // 선택된 것의 진입차수를 1낮추기, 이후에 진행되는 것들의 진입차수도 1낮추기
         inDegree[fitness.getId()]--;
 
         for(Fitness fit : graph[fitness.getId()]){
             inDegree[fit.getId()]--;
         }
+        
+        queue.add(fitness);
     }
 
     public List<Fitness> remainRoutine(){
@@ -210,7 +218,22 @@ public class Routine {
 	 	
 	 	return outer;
 	 }
-	
+	 
+	 
+	 public Map<String, ?> pageInfoBeforeSelect(){
+		 Map outer = new HashMap<>();
+		 
+		 outer.put("selection", this.getSelection());
+		 outer.put("remain", this.remainRoutine());
+		 
+		 return outer;
+	 }
+	 
+	 @JsonIgnore
+	 public ArrayList<Fitness> getSorted(){
+		 return this.queue;
+	 }
+	 
 	@Override
 	public String toString() {
 		return "Routine [id=" + id + ", routine=" + routine + "]";
