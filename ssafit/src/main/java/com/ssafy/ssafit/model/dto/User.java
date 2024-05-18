@@ -9,8 +9,8 @@ public class User {
 	private String name;
 	private String address;
 	
-	List<Integer> favoriteRoutine; // DB에는 정보가 없는 상태, favorite의 문자열 상태를 적절히 변환해서 루틴의 아이디리스트로 변환해서 집어넣을 공간
-	List<Integer> doneRoutine; // 이것도 마찬가지
+	List<Integer> favoriteRoutine = new ArrayList<>(); // DB에는 정보가 없는 상태, favorite의 문자열 상태를 적절히 변환해서 루틴의 아이디리스트로 변환해서 집어넣을 공간
+	List<Integer> doneRoutine = new ArrayList<>(); // 이것도 마찬가지
 	private String favorite; // 운동의 구성들을 아이디상태로 갖고있고, 문자열 상태임
 	private String done;
 	

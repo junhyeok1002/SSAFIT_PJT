@@ -67,7 +67,7 @@ public class UserController {
     		return new ResponseEntity<User>(result,HttpStatus.OK);
     	} catch (Exception e) {
 			// 해당 계정이 존재하지 않아 null값, 에러메세지를 반환
-    		return new ResponseEntity<String>(e.getMessage(),HttpStatus.BAD_REQUEST);
+    		return new ResponseEntity<String>("계정 정보가 없습니다. 다시 확인해주세요.",HttpStatus.BAD_REQUEST);
 		}
     }
     
