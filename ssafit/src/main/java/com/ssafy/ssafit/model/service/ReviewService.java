@@ -14,6 +14,9 @@ public interface ReviewService {
 	//리뷰 상세 조회
 	public Review readReview(int reviewId); 
 	
+	// 특정 회원의 리뷰 가져오기
+	public List<Review> getReviewUserList(String userId);
+	
 	//리뷰 작성
 	public int writeReview(Review review);
 	

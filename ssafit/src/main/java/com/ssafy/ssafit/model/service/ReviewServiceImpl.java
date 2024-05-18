@@ -64,5 +64,11 @@ public class ReviewServiceImpl implements ReviewService {
 		return reviewDao.searchReview(reviewCondition);
 	}
 
+	@Override
+	public List<Review> getReviewUserList(String userId) {
+		// 마이페이지용 회원의 리뷰 가져오기
+		return reviewDao.reviewUserAll(userId);
+	}
+
 	
 }

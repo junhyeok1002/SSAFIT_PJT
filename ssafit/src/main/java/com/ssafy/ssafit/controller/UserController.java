@@ -54,9 +54,9 @@ public class UserController {
 //    		result.setFavorite("[1,2,3,4,5]");
 //    		result.setDone("[1,2,3]");
     		session.setAttribute("login", result);
-
-//    		getList(session);
-    		
+    		System.out.println("세션이전");
+    		getList(session);
+    		System.out.println("세션이후");
     		//리스트화 완료
 //    		System.out.println("리스트화 했어!");
 //    		User wind = (User) session.getAttribute("login");
@@ -105,11 +105,13 @@ public class UserController {
     	// 현재 [1,2,3,4] 인 상태
     	// 원하는 형태는 [1,2,3,4]
     	List<Integer> result = new ArrayList<>();
-    	temp = temp.substring(1,temp.length()-1); // [1,2,3,4] -> 1,2,3,4
+    	temp = temp.substring(1,temp.length()-1).replace(" ",""); // [1,2,3,4] -> 1,2,3,4
+    	System.out.println("temp : "+temp);
+    	
     	for(String s : temp.split(",")) {
     		result.add(Integer.parseInt(s));
     	}
-
+    	System.out.println("STringToList : "+result);
     	return result;
     }
     
@@ -117,6 +119,7 @@ public class UserController {
     // 최초 로그인할 때만 한 번 사용하는 메서드
     public void getList(HttpSession session) {
     	User user = (User) session.getAttribute("login");
+    	System.out.println("문자열을 리스트로 바꿔줘잉"+" "+user.toString());
     	
     	// 둘다 문자열 상태
     	String fav = user.getFavorite(); // [1,2,3,4,5] 이렇게 된 상태임, DB엔 존재 X
@@ -194,6 +197,28 @@ public class UserController {
     		return new ResponseEntity<User>(user, HttpStatus.OK);
     		
     	}
+    }
+    
+    // 마이페이지
+    @GetMapping("/mypage")
+    public ResponseEntity<?> myPage(HttpSession session) {
+    	// 회원정보 및 즐찾루틴, done루틴, 해당 회원이 작성한 게시글 보기
+    	User user = (User) session.getAttribute("login");
+    	if (user == null) {
+    		return new ResponseEntity<String>("로그인 후 마이페이지 이동이 가능합니다.", HttpStatus.OK);    		
+    	}
+    	// 로그인 된 상태
+    	// 1. 회원정보 및 루틴들 정보 -> 세션영역에 존재
+    	// 2. 해당 회원이 작성한 게시글만 보기
+    	
+    	return new ResponseEntity<List<Review>>(reviews, HttpStatus.OK);
+    }
+    
+    // 회원 정보 수정
+    @PostMapping("/userUpdate")
+    public ResponseEntity<?> myPage() {
+    	
+    	return new ResponseEntity<List<Review>>(reviews, HttpStatus.OK);
     }
     
 }

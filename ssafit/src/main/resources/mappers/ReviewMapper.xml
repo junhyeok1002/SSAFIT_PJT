@@ -14,6 +14,12 @@
         SELECT * FROM review 
         WHERE reviewId = #{reviewId};
     </select>
+    
+    <!-- 마이페이지 리뷰 가져오기 -->
+    <select id="reviewUserAll" resultType="Review" parameterType="String">
+        SELECT * FROM review 
+        WHERE userId = #{userId};
+    </select>
 
 	<!-- 리뷰 작성 -->
     <insert id="reviewInsert" parameterType="Review" keyProperty="reviewId" useGeneratedKeys="true" >

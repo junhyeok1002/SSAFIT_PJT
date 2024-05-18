@@ -15,6 +15,9 @@ public interface ReviewDao {
 	// 특정 루틴 리뷰 가져오기
 	Review reviewSelectOne(int reviewId);
 	
+	// 특정 회원의 리뷰 가져오기
+	List<Review> reviewUserAll(String userId);
+	
 	// 리뷰 작성하기
 	int reviewInsert(Review review);
 	
