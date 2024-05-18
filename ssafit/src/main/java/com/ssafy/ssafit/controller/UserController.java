@@ -2,8 +2,10 @@ package com.ssafy.ssafit.controller;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.ssafit.model.dto.Review;
 import com.ssafy.ssafit.model.dto.User;
+import com.ssafy.ssafit.model.service.ReviewService;
 import com.ssafy.ssafit.model.service.UserService;
 
 import jakarta.servlet.http.HttpSession;
@@ -28,11 +31,13 @@ import jakarta.servlet.http.HttpSession;
 public class UserController {
 	
 	private UserService userService;
+	private ReviewService reviewService; // 회원 작성글만 가져오기 위한 서비스
 	
 	//의존성 주입
 	@Autowired
-	public UserController(UserService userService) {
+	public UserController(UserService userService, ReviewService reviewService) {
 		this.userService = userService;
+		this.reviewService = reviewService;
 	}
 	
 	//로그인 하기
@@ -105,13 +110,13 @@ public class UserController {
     	// 현재 [1,2,3,4] 인 상태
     	// 원하는 형태는 [1,2,3,4]
     	List<Integer> result = new ArrayList<>();
-    	temp = temp.substring(1,temp.length()-1).replace(" ",""); // [1,2,3,4] -> 1,2,3,4
-    	System.out.println("temp : "+temp);
+    	temp = temp.substring(1,temp.length()-1).replace(" ",""); // [1, 2, 3, 4] -> 1, 2, 3,4
+//    	System.out.println("temp : "+temp);
     	
     	for(String s : temp.split(",")) {
     		result.add(Integer.parseInt(s));
     	}
-    	System.out.println("STringToList : "+result);
+//    	System.out.println("STringToList : "+result);
     	return result;
     }
     
@@ -119,12 +124,12 @@ public class UserController {
     // 최초 로그인할 때만 한 번 사용하는 메서드
     public void getList(HttpSession session) {
     	User user = (User) session.getAttribute("login");
-    	System.out.println("문자열을 리스트로 바꿔줘잉"+" "+user.toString());
+//    	System.out.println("문자열을 리스트로 바꿔줘잉"+" "+user.toString());
     	
     	// 둘다 문자열 상태
     	String fav = user.getFavorite(); // [1,2,3,4,5] 이렇게 된 상태임, DB엔 존재 X
     	String d = user.getDone();
-    	System.out.println("fav : "+fav+" "+"d : "+d);
+//    	System.out.println("fav : "+fav+" "+"d : "+d);
     	List<Integer> favList = StringToList(fav);
     	List<Integer> dList = StringToList(d);
     	System.out.println(favList);
@@ -210,15 +215,36 @@ public class UserController {
     	// 로그인 된 상태
     	// 1. 회원정보 및 루틴들 정보 -> 세션영역에 존재
     	// 2. 해당 회원이 작성한 게시글만 보기
+    	List<Review> userReviewList = reviewService.getReviewUserList(user.getId());
+//    	System.out.println("마이 페이지의 리뷰글 "+userReviewList.toString());
     	
-    	return new ResponseEntity<List<Review>>(reviews, HttpStatus.OK);
+    	// 회원정보 및 루틴 정보들 + 작성한 게시글들 전부 하나의 객체로 묶어서 보내줌
+    	// 일단 map으로 보내놓음
+    	// 필요시 JSON형태로 직접 변형해서 보냄
+    	Map<String, Object> info = new HashMap<>();
+    	info.put("reviewList", userReviewList);
+    	info.put("favoritRoutine", user.getFavoriteRoutine());
+    	info.put("doneRoutine", user.getDoneRoutine());
+    	return new ResponseEntity<Map>(info, HttpStatus.OK);
     }
     
     // 회원 정보 수정
     @PostMapping("/userUpdate")
-    public ResponseEntity<?> myPage() {
-    	
-    	return new ResponseEntity<List<Review>>(reviews, HttpStatus.OK);
+    public ResponseEntity<?> myPage(@RequestBody User userUpdate,HttpSession session) {
+    	User user = (User) session.getAttribute("login");
+    	if (user == null) {
+    		return new ResponseEntity<String>("로그인 후 회원 수정이 가능합니다.", HttpStatus.OK);    		
+    	}
+    	// 로그인 된 상태
+    	// 일단 아이디는 유일해야한다고 생각,
+    	// 아이디가 맞지 않으면 수정X
+    	if (! user.getId().equals(userUpdate.getId())) {
+    		return new ResponseEntity<String>("회원이 일치하지 않습니다. 아이디를 확인해주세요.", HttpStatus.OK);    		
+    	} else {
+    		// 아이디 동일함, 수정 진행
+    		userService.update(userUpdate);
+    		return new ResponseEntity<String>("회원 정보를 갱신했습니다.", HttpStatus.OK);
+    	}
     }
     
 }
