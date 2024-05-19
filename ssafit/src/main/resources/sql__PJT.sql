@@ -2,13 +2,15 @@ DROP DATABASE IF EXISTS ssafit;
 CREATE DATABASE ssafit DEFAULT CHARACTER SET utf8mb4;
 USE ssafit;
 
+-- create user 'ssafy'@'localhost' identified by 'ssafy';
+
 CREATE TABLE Routine (
 	id INT AUTO_INCREMENT,
     fitnessList VARCHAR(307) UNIQUE,
     PRIMARY KEY(id)
 );
 
-INSERT IGNORE INTO Routine(fitnessList) 
+INSERT IGNORE INTO Routine(fitnessList)
 VALUES ("[1, 2]"),
 		("[1, 2]"),
         ("[1, 3, 4]"),
@@ -25,11 +27,11 @@ CREATE TABLE User (
 );
 
 
-INSERT INTO User(id, password, name, address) 
+INSERT INTO User(id, password, name, address)
 VALUES ("ssafy","1234","김싸피","대전광역시 둔산로 15"),
 		("ssafy1","1234","김싸피","대전광역시 둔산로 15");
-        
-        
+
+
 CREATE TABLE review (
     reviewId INT AUTO_INCREMENT,
     title VARCHAR(20) NOT NULL,
@@ -49,6 +51,6 @@ INSERT INTO review (userId, userName, title, content, routineId) VALUES
 ('ssafy1', '박민수', '별로입니다', '기대에 미치지 못했습니다.',4),
 ('ssafy1', '최지은', '훌륭해요', '정말 훌륭한 루틴입니다. 만족합니다.',1);
 
-select * from review;        
+select * from review;
 SELECT * FROM User;
 SELECT * FROM Routine ORDER BY id ASC;
