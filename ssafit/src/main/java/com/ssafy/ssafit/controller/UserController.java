@@ -29,7 +29,7 @@ import jakarta.servlet.http.HttpSession;
 
 @RestController
 @RequestMapping("")
-//@CrossOrigin("*")
+@CrossOrigin("*")
 public class UserController {
 	
 	private UserService userService;

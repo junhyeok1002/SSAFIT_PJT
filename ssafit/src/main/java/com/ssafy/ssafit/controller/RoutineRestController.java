@@ -24,7 +24,7 @@ import jakarta.servlet.http.HttpSession;
 
 @RestController
 @RequestMapping("/api-routine")
-//@CrossOrigin("*")
+@CrossOrigin("*")
 public class RoutineRestController {
 	private final RoutineService routineService;
 	

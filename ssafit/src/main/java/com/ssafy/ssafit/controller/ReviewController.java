@@ -26,7 +26,7 @@ import jakarta.servlet.http.HttpSession;
 
 
 @RestController
-//@CrossOrigin("*") // 우선 작동하는지 보기위해...
+@CrossOrigin("*") // 우선 작동하는지 보기위해...
 @RequestMapping("/review")
 public class ReviewController {
 	
