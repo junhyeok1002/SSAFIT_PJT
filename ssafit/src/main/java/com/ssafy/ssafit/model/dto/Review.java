@@ -6,7 +6,7 @@ public class Review {
 	private String userId;
 	private String userName;
 	private String createTime;
-	private String routine;
+	private String routineId;
 	private String content;
 	private int viewCnt;
 	
@@ -15,21 +15,21 @@ public class Review {
 	
 	
 	// 리뷰 생성을 위한 생성자
-	public Review(String title, String userId, String userName, String content, String routine) {
+	public Review(String title, String userId, String userName, String content, String routineId) {
 		super();
 		this.title = title;
 		this.userId = userId;
 		this.userName = userName;
 		this.content = content;
-		this.routine = routine;
+		this.routineId = routineId;
 	}
 	
 	//로그인시 리뷰 생성자를 위한 생성자
-	public Review(String title, String content, String routine) {
+	public Review(String title, String content, String routineId) {
 		super();
 		this.title = title;
 		this.content = content;
-		this.routine = routine;
+		this.routineId = routineId;
 	}
 	
 	
@@ -46,7 +46,7 @@ public class Review {
 
 
 	// 모든 파라미터를 받는 생성자
-	public Review(int reviewId, String title, String userId, String userName, String createTime, String routine,
+	public Review(int reviewId, String title, String userId, String userName, String createTime, String routineId,
 			String content, int viewCnt) {
 		super();
 		this.reviewId = reviewId;
@@ -54,7 +54,7 @@ public class Review {
 		this.userId = userId;
 		this.userName = userName;
 		this.createTime = createTime;
-		this.routine = routine;
+		this.routineId = routineId;
 		this.content = content;
 		this.viewCnt = viewCnt;
 	}
@@ -115,13 +115,16 @@ public class Review {
 	}
 
 
-	public String getRoutine() {
-		return routine;
+	
+
+
+	public String getRoutineId() {
+		return routineId;
 	}
 
 
-	public void setRoutine(String routine) {
-		this.routine = routine;
+	public void setRoutineId(String routineId) {
+		this.routineId = routineId;
 	}
 
 
@@ -148,9 +151,12 @@ public class Review {
 	@Override
 	public String toString() {
 		return "Review [reviewId=" + reviewId + ", title=" + title + ", userId=" + userId + ", userName=" + userName
-				+ ", createTime=" + createTime + ", routine=" + routine + ", content=" + content + ", viewCnt="
+				+ ", createTime=" + createTime + ", routineId=" + routineId + ", content=" + content + ", viewCnt="
 				+ viewCnt + "]";
 	}
+
+
+	
 
 	
 }
