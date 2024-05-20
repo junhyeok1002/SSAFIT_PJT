@@ -253,7 +253,6 @@ public enum Fitness {
  
  
  public Map<String, ?> getMap(){
- 	Map outer = new HashMap<>();
  	Map inner = new HashMap<>();
  	Map muscles = new HashMap<>();
  	
@@ -264,10 +263,9 @@ public enum Fitness {
  	inner.put("id", this.id);
  	inner.put("name", this.name);
  	inner.put("muscle", muscles);
+ 	inner.put("e_name", this);
  	
- 	outer.put(this, inner);
- 	
- 	return outer;
+ 	return inner;
  }
  
  
