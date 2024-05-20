@@ -131,15 +131,21 @@ public class UserController {
     	// 둘다 문자열 상태
     	String fav = user.getFavorite(); // [1,2,3,4,5] 이렇게 된 상태임, DB엔 존재 X
     	String d = user.getDone();
-//    	System.out.println("fav : "+fav+" "+"d : "+d);
-    	List<Integer> favList = StringToList(fav);
-    	List<Integer> dList = StringToList(d);
-    	System.out.println(favList);
-    	System.out.println(dList);
+    	System.out.println("fav : "+fav+" "+"d : "+d);
+    	if (fav != null) {
+    		List<Integer> favList = StringToList(fav);
+    		user.setFavoriteRoutine(favList);    		
+    		System.out.println(favList);
+    	}
+    	
+    	if (d != null) {
+    		List<Integer> dList = StringToList(d);
+    		user.setDoneRoutine(dList);
+    		System.out.println(dList);
+    		
+    	}
     	
 
-    	user.setFavoriteRoutine(favList);
-    	user.setDoneRoutine(dList);
     	
     	// 갱신한 후 다시 session에 유저정보 갱신
     	session.setAttribute("login", user);
