@@ -39,18 +39,17 @@ public enum Muscle {
         return name;
     }
     
-    public Map<String, Map<String, String>> getMap(){
-    	Map outer = new HashMap<>();
+    public Map<String, ?> getMap(){
     	Map inner = new HashMap<>();
     	
     	inner.put("name", this.name);
     	inner.put("volume", this.volume);
-    	outer.put(this, inner);
-    	return outer;
+    	inner.put("e_name", this);
+    	return inner;
     }
     
-    public static List<Map<String, Map<String, String>>> getMaps(){
-    	List<Map<String, Map<String, String>>> list = new ArrayList<>();
+    public static List<Map<String, ?>> getMaps(){
+    	List<Map<String, ?>> list = new ArrayList<>();
     	
     	Muscle[] muscles = Muscle.values();
     	

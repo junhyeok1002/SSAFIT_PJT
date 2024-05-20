@@ -88,8 +88,8 @@ public class RoutineRestController {
 	// 근육 부위를 불러오기
 	@GetMapping("/muscle")
 	public ResponseEntity<?> readAllMuscle(){
-		List<Map<String, Map<String, String>>> muscleList = Muscle.getMaps();
-        return new ResponseEntity<List<Map<String, Map<String, String>>>>(muscleList, HttpStatus.OK);
+		List<Map<String, ?>> muscleList = Muscle.getMaps();
+        return new ResponseEntity<List<Map<String, ?>>>(muscleList, HttpStatus.OK);
 	}
 	
 	// 운동 불러오기
