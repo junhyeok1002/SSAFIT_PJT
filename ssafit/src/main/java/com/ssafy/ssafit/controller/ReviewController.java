@@ -26,7 +26,7 @@ import jakarta.servlet.http.HttpSession;
 
 
 @RestController
-@CrossOrigin("*") // 우선 작동하는지 보기위해...
+//@CrossOrigin("*") // 우선 작동하는지 보기위해...
 @RequestMapping("/review")
 public class ReviewController {
 	
@@ -102,6 +102,7 @@ public class ReviewController {
     	// 삭제 대상의 리뷰를 일단 가져와
     	Review temp = reviewService.readReview(reviewId);
     	User user = (User) session.getAttribute("login");
+    	System.out.println(session.getAttribute("login"));
 //    	System.out.println(temp.getUserId().equals(user.getId()) || user.getId().equals("admin") );
     	try {
     		//로그인 하긴 했는데 일치 or 불일치

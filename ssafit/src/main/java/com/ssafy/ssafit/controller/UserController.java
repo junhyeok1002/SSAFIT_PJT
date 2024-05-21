@@ -29,7 +29,7 @@ import jakarta.servlet.http.HttpSession;
 
 @RestController
 @RequestMapping("")
-@CrossOrigin("*")
+//@CrossOrigin("*")
 public class UserController {
 	
 	private UserService userService;
@@ -70,7 +70,7 @@ public class UserController {
 //    		System.out.println(wind.getDoneRoutine());
 //    		System.out.println(wind.getFavoriteRoutine());
     		
-    		
+    		System.out.println("로그인 정보 : "+session.getAttribute("login"));
     		return new ResponseEntity<User>(result,HttpStatus.OK);
     	} catch (Exception e) {
 			// 해당 계정이 존재하지 않아 null값, 에러메세지를 반환
