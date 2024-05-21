@@ -138,6 +138,22 @@ public class RoutineRestController {
 		
         return new ResponseEntity<Map<String, ?>>(routineList, HttpStatus.OK);
 	}
+
+	@GetMapping("/fitness/routine/detail/{id}")
+	public ResponseEntity<?> readRoutineDetail(@PathVariable("id") int id){
+		Routine routine = routineService.selectOneById(id);
+
+		List<Fitness> fitnessList = (List<Fitness>) routine.makeMap().get("routine");
+		System.out.println(fitnessList.toString());
+
+		List<Map<String, ?>> routineList = new ArrayList<>();
+		for(Fitness fit : fitnessList){
+			Map<String, ?> fitnessMap = fit.getMap();
+			routineList.add(fitnessMap);
+		}
+
+		return new ResponseEntity<List<Map<String, ?>>>(routineList, HttpStatus.OK);
+	}
 	
 	// 해당 id에 해당하는 루틴을 
 	@GetMapping("/fitness/workout/{routine_id}")
