@@ -52,18 +52,29 @@
 	<select id="searchReview" parameterType="ReviewCondition" resultType="Review">
         SELECT *
         FROM review
-        WHERE 
+        <if test="reviewTitle != 'none' or reviewRoutineId != 0 or reviewAuthorName != 'none'">
+	        WHERE 
+        </if>
             <trim prefixOverrides="AND">
-	        	<if test="reviewTitle != null">
-	        		AND title LIKE concat('%', #{reviewTitle}, '%')
-	        	</if>
-	        	<if test="reviewAuthorName != null">
-        			AND userName = #{reviewAuthorName}
-	       		</if>
-       		</trim>
-       	<if test="reivewDirection != null">
-       	ORDER BY viewCnt ${reivewDirection}
-       	</if>
-     </select>
+	            <if test="reviewTitle != 'none'">
+                    AND title LIKE concat('%', #{reviewTitle}, '%')
+                </if>
+               <if test="reviewRoutineId != 0">
+                	AND routineId = #{reviewRoutineId}
+               </if>
+			   <if test="reviewAuthorName != 'none'">
+                    AND userName LIKE concat('%', #{reviewAuthorName}, '%')
+               </if>
+            </trim>
+           <if test="reviewDirection != null">
+               <if test="reviewDirection == '오름차순'">
+                   ORDER BY viewCnt ASC;
+               </if>
+               <if test="reviewDirection == '내림차순'">
+                   ORDER BY viewCnt DESC;
+               </if>
+           </if>
+            
+    </select>
 	
 </mapper>

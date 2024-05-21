@@ -77,6 +77,7 @@ public class ReviewController {
     	// 뭔가 인터셉터에서 해야할 것 같지만
     	// 우선은 여기에서 검증해보자!
     	System.out.println("여기는 수정하기!");
+    	System.out.println("수정될 내용 : "+review);
     	// 리뷰아이디에 해당하는 바뀌기전 원본 리뷰를 일단 가져와서
     	// RequestBody로 가져온, 내용을 갱신할 reivew와 비교
     	// userId를 비교해서 일치하면 수정할 수 있도록 한다!
@@ -132,6 +133,7 @@ public class ReviewController {
     //public ResponseEntity<?> reviewSearch(@PathVariable("title") String title,@PathVariable("name") String name,@PathVariable("direction") String direction) {
     @GetMapping("/search")
 	public ResponseEntity<?> reviewSearch(@ModelAttribute("condition") ReviewCondition condition) {
+    	System.out.println("검색 조건 : "+condition);
 		List<Review> reviews = reviewService.searchReview(condition);
 		return new ResponseEntity<List<Review>>(reviews, HttpStatus.OK);	
 	}

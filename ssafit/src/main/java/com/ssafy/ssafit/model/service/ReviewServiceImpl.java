@@ -61,6 +61,8 @@ public class ReviewServiceImpl implements ReviewService {
 	@Override
 	public List<Review> searchReview(ReviewCondition reviewCondition) {
 		// 리뷰 검색 및 정렬
+		System.out.println("검색 가져와!!"+" "+reviewCondition.toString());
+		System.out.println(reviewDao.searchReview(reviewCondition));
 		return reviewDao.searchReview(reviewCondition);
 	}
 
