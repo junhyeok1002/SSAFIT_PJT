@@ -154,10 +154,10 @@ public enum Fitness {
          Arrays.asList()),
 
  // 등 운동
- UnderGrip_Lat_Pull_Down(45, "언더 그립 렛풀다운", Muscle.Latissimus_Dorsi ,
+ Undergrip_Lat_Pull_Down(45, "언더 그립 렛풀다운", Muscle.Latissimus_Dorsi ,
          Arrays.asList(Muscle.Biceps_Brachii),
          Arrays.asList(Muscle.Forearm, Muscle.Trapezius)),
- OverGrip_Lat_Pull_Down(46, "오버 그립 렛풀다운", Muscle.Latissimus_Dorsi ,
+ Overgrip_Lat_Pull_Down(46, "오버 그립 렛풀다운", Muscle.Latissimus_Dorsi ,
          Arrays.asList(Muscle.Trapezius, Muscle.Deltoids_Posterior),
          Arrays.asList(Muscle.Forearm)),
  Overhead_Lat_Pull_Down(47, "오버 헤드 렛풀다운", Muscle.Latissimus_Dorsi ,

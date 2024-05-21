@@ -37,6 +37,7 @@ public class RoutineRestController {
 	@GetMapping("/routine")
 	public ResponseEntity<?> readAllRoutine(){
 		List<Routine> routines = routineService.getRoutineList(); // 검색조회
+		System.out.println(routines.toString());
 		
 		if(routines == null || routines.size() == 0) {
 			return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
