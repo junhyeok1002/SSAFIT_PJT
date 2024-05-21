@@ -260,6 +260,9 @@ public enum Fitness {
  	muscles.put("synergists_first", this.synergists_first);
  	muscles.put("synergists_second", this.synergists_second);
  	
+ 	
+ 	
+ 	
  	inner.put("id", this.id);
  	inner.put("name", this.name);
  	inner.put("muscle", muscles);

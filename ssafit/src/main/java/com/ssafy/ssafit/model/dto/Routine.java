@@ -173,7 +173,7 @@ public class Routine {
 		for(Fitness fitness : routine) {
 			// 주동근 계산
 			// 없으면 만들고
-			String agonist = fitness.getAgonist().name();
+			String agonist = fitness.getAgonist().name()+"("+fitness.getAgonist().getName()+")";
 			if(!map.containsKey(agonist)) {
 				map.put(agonist, (double)0);
 			}
@@ -182,19 +182,21 @@ public class Routine {
 			
 			// 1차 협응근
 			for(Muscle muscle : fitness.getSynergists_first()) {
-				if(!map.containsKey(muscle.name())) {
-					map.put(muscle.name(), (double)0);
+				String name = muscle.name()+"("+muscle.getName()+")";
+				if(!map.containsKey(name)) {
+					map.put(name, (double)0);
 				}
-				map.put(muscle.name(), map.get(muscle.name())+(muscle.getVolume()/(double)2));
+				map.put(name, map.get(name)+(muscle.getVolume()/(double)2));
 				total_volume += (muscle.getVolume()/(double)2);
 			}
 			
 			// 2차 협응근
 			for(Muscle muscle : fitness.getSynergists_second()) {
-				if(!map.containsKey(muscle.name())) {
-					map.put(muscle.name(), (double)0);
+				String name = muscle.name()+"("+muscle.getName()+")";
+				if(!map.containsKey(name)) {
+					map.put(name, (double)0);
 				}
-				map.put(muscle.name(), map.get(muscle.name())+(muscle.getVolume()/(double)4));
+				map.put(name, map.get(name)+(muscle.getVolume()/(double)4));
 				total_volume += (muscle.getVolume()/(double)4);
 			}
 		}
