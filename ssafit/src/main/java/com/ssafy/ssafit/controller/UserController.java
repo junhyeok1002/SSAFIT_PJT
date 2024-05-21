@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -237,7 +238,7 @@ public class UserController {
     }
     
     // 회원 정보 수정
-    @PostMapping("/userUpdate")
+    @PutMapping("/userUpdate")
     public ResponseEntity<?> myPage(@RequestBody User userUpdate,HttpSession session) {
     	User user = (User) session.getAttribute("login");
     	if (user == null) {
