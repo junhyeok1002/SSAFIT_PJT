@@ -258,6 +258,7 @@ public class UserController {
     		sessionUser.setAddress(userUpdate.getAddress());
     		sessionUser.setName(userUpdate.getName());
     		session.setAttribute("login", sessionUser);
+    		System.out.println("수정 후 정보 : "+((User) session.getAttribute("login")));
     		return new ResponseEntity<User>(sessionUser, HttpStatus.OK);
     	}
     }

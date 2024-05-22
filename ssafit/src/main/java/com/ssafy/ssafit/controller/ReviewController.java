@@ -56,6 +56,16 @@ public class ReviewController {
     	return new ResponseEntity<Review>(review, HttpStatus.OK);
     }
     
+    // 특정 유저의 리뷰들 가져오기
+    @PostMapping("/user")
+    public ResponseEntity<?> userReviews(@RequestBody String userId) {
+    	System.out.println(userId+"회원의 리뷰 가져오기!");
+    	// 대체 =가 어디서 붙는거지?
+    	userId = userId.substring(0,userId.length()-1);
+    	System.out.println(userId);
+    	List<Review> userList = reviewService.getReviewUserList(userId);
+    	return new ResponseEntity<List<Review>>(userList, HttpStatus.OK);
+    } 
 
 	// 리뷰 생성
     @PostMapping("")
