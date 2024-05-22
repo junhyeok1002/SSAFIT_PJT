@@ -242,7 +242,6 @@ public class Routine {
 		 return fMapList;
 	 }
 	 
-	 
 	 @JsonIgnore
 	 public List getSorted(){
 		 List sortList = changeMap(this.queue);
