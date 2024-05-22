@@ -153,7 +153,7 @@ public class UserController {
     }
     
     // 루틴 즐겨찾기 등록
-    @PostMapping("/favorit/{id}")
+    @PostMapping("/favorite/{id}")
     public ResponseEntity<?> addFavorit(@PathVariable("id") String id, HttpSession session) {
     	// 현재 로그인 돼 있는지 확인
     	User user = (User) session.getAttribute("login");
