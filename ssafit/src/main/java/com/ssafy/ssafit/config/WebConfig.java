@@ -20,4 +20,12 @@ public class WebConfig implements WebMvcConfigurer {
                 .allowedHeaders("*")
                 .allowCredentials(true);
     }
+	
+//	@Override
+//    public void addInterceptors(InterceptorRegistry registry) {
+//        // 인터셉터를 등록합니다.
+//        registry.addInterceptor(new SessionInterceptor())
+//                .addPathPatterns("/**") // 모든 경로에 인터셉터를 적용합니다.
+//                .excludePathPatterns("/public/**"); // 특정 경로를 제외할 수도 있습니다.
+//    }
 }
