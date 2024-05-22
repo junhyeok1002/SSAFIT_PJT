@@ -26,7 +26,7 @@
     <!-- 유저 정보 갱신 -->
     <update id="userUpdate" parameterType="User">
         UPDATE user 
-        SET password=#{password}, name=#{name}, address=#{address}
+        SET password=#{password}, name=#{name}, address=#{address}, favorite=#{favorite}, done=#{done}
         WHERE id = #{id}
     </update>
 
