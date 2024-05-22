@@ -24,7 +24,7 @@
 	<!-- 리뷰 작성 -->
     <insert id="reviewInsert" parameterType="Review" keyProperty="reviewId" useGeneratedKeys="true" >
         INSERT INTO review (userId, userName, title, content, routineId)
-        VALUES (#{userId}, #{userName}, #{title}, #{content}, #{routine})
+        VALUES (#{userId}, #{userName}, #{title}, #{content}, #{routineId})
     </insert>
 
     <!-- 리뷰 수정, 해당 작성자만 수정할 수 있도록 함! -->
