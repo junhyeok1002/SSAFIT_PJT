@@ -187,6 +187,47 @@ public class UserController {
     	}
     }
     
+    // 루틴 즐겨찾기 삭제
+    @PostMapping("/favorite/delete/{id}")
+    public ResponseEntity<?> deleteFavorit(@PathVariable("id") String id, HttpSession session) {
+    	
+    	System.out.println("루틴즐찾 삭제해줘!!"+" "+id);
+    	// 현재 로그인 돼 있는지 확인
+    	User user = (User) session.getAttribute("login");
+    	if (user == null) {
+    		System.out.println("로그인 안됐음");
+    		// 아직 로그인이 안됐음
+    		return new ResponseEntity<String>("루틴을 즐겨찾기로 등록하고 싶으면 로그인 하세요.",HttpStatus.BAD_REQUEST);
+    	} else {
+    		System.out.println(user.toString());
+    		// 로그인 된 상태
+    		// 해당 유저가 갖고 있는 fav문자열 done문자열, fav리스트, done리스트 갱신해줘야함
+    		// 문자열 만큼 더해주고, 리스트 만큼 추가해줌
+    		// fav문자열과 done문자열은 db에도 존재하는 정보 -> 갱신 해줘야함
+    		Set<Integer> check = new HashSet<>();
+    		for (int i : user.getFavoriteRoutine()) {
+    			if (i == Integer.parseInt(id)) {
+    				continue;
+    			}
+    			check.add(i);
+    		}
+    		List<Integer> checkList = new ArrayList<Integer>(check);
+    		System.out.println("현재 체크리스트 "+checkList);
+    		if (checkList.size() == 0) {
+    			user.setFavoriteRoutine(new ArrayList<>());
+    			user.setFavorite(null);    			
+    		} else {
+    			user.setFavoriteRoutine(checkList);
+    			user.setFavorite(checkList.toString());    			
+    		}
+    		session.setAttribute("login", user); // 세션 영역에 해당 유저 정보 갱신
+    		// db에도 반영해줌
+    		userService.update(user);
+    		System.out.println(user.toString());
+    		return new ResponseEntity<User>(user, HttpStatus.OK);
+    	}
+    }
+    
     // 다한 루틴 등록하기
     @PostMapping("/done/{id}")
     public ResponseEntity<?> addDone(@PathVariable("id") String id, HttpSession session) {
