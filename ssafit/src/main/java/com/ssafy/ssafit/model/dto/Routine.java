@@ -244,8 +244,9 @@ public class Routine {
 	 
 	 
 	 @JsonIgnore
-	 public ArrayList<Fitness> getSorted(){
-		 return this.queue;
+	 public List getSorted(){
+		 List sortList = changeMap(this.queue);
+		 return sortList;
 	 }
 	 
 	@Override

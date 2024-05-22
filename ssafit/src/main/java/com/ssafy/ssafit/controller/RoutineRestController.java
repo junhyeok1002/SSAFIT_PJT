@@ -158,11 +158,17 @@ public class RoutineRestController {
 	// 해당 id에 해당하는 루틴을 
 	@GetMapping("/fitness/workout/{routine_id}")
 	public ResponseEntity<?> readRoutine(@PathVariable("routine_id") int routine_id, HttpSession session){
-		Routine routine = routineService.selectOneById(routine_id);
-		routine.init();
+		Routine routine;
 		
-		// 세션에 루틴 저장
-        session.setAttribute("routine", routine);
+		Object sessionRoutine = session.getAttribute("routine");
+		if(sessionRoutine == null) {
+			routine = routineService.selectOneById(routine_id);
+			routine.init();
+	        session.setAttribute("routine", routine);
+		}else {
+			routine = (Routine) session.getAttribute("routine");
+			
+		}
 		
         Map map = routine.pageInfoBeforeSelect();
         
@@ -179,8 +185,9 @@ public class RoutineRestController {
         
         if(((List<Routine>) map.get("remain")).size() == 0) {
         	System.out.println("이제 끝이야!!! 후기 페이지로 넘어가줘");
+        	session.removeAttribute("routine");
         	List list = routine.getSorted();
-        	return new ResponseEntity<List<Fitness>>(list, HttpStatus.OK);
+        	return new ResponseEntity<List<?>>(list, HttpStatus.OK);
         }
 
         return new ResponseEntity<Map<String, ?>>(map, HttpStatus.OK);
