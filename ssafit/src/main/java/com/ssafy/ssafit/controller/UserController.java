@@ -252,8 +252,13 @@ public class UserController {
     	} else {
     		// 아이디 동일함, 수정 진행
     		userService.update(userUpdate);
-    		session.setAttribute("login", userUpdate);
-    		return new ResponseEntity<User>(userUpdate, HttpStatus.OK);
+    		//fav, done정보는 고대로 유지해야함, return되는게 없으니...
+    		User sessionUser = (User) session.getAttribute("login");
+    		sessionUser.setPassword(userUpdate.getPassword());
+    		sessionUser.setAddress(userUpdate.getAddress());
+    		sessionUser.setName(userUpdate.getName());
+    		session.setAttribute("login", sessionUser);
+    		return new ResponseEntity<User>(sessionUser, HttpStatus.OK);
     	}
     }
     
