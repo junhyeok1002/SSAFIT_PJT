@@ -30,7 +30,7 @@
     <!-- 리뷰 수정, 해당 작성자만 수정할 수 있도록 함! -->
     <!--  작성자 검증은 컨트롤러에서 먼저 선행된 상태임! -->
     <update id="reviewUpdate" parameterType="Review">
-        UPDATE review SET title=#{title}, content=#{content}
+        UPDATE review SET title=#{title}, content=#{content}, favorite=#{favorite}, done=#{done}
         WHERE reviewId = #{reviewId}
     </update>
 
