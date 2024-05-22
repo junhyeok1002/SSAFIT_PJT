@@ -252,7 +252,8 @@ public class UserController {
     	} else {
     		// 아이디 동일함, 수정 진행
     		userService.update(userUpdate);
-    		return new ResponseEntity<String>("회원 정보를 갱신했습니다.", HttpStatus.OK);
+    		session.setAttribute("login", userUpdate);
+    		return new ResponseEntity<User>(userUpdate, HttpStatus.OK);
     	}
     }
     
