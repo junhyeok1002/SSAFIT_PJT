@@ -224,12 +224,24 @@ public class Routine {
 	 
 	 public Map<String, ?> pageInfoBeforeSelect(){
 		 Map outer = new HashMap<>();
-		 
-		 outer.put("selection", this.getSelection());
-		 outer.put("remain", this.remainRoutine());
-		 
+
+		 outer.put("selection",changeMap(this.getSelection()));
+		 outer.put("remain",changeMap(this.remainRoutine()));
+
 		 return outer;
 	 }
+	 
+	 public static List changeMap(List<Fitness> list){
+		 List fMapList = new ArrayList<>(); 
+		 
+		 for(Fitness f : list) {
+			 Map<String, ?> fMap = f.getMap();
+			 fMapList.add(fMap);
+		 }
+			 
+		 return fMapList;
+	 }
+	 
 	 
 	 @JsonIgnore
 	 public ArrayList<Fitness> getSorted(){
